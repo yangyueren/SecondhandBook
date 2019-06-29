@@ -1,226 +1,445 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
+
 <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for("static", filename="assets/vendor/bootstrap/css/bootstrap.min.css") }}">
+    <link href="{{ url_for("static", filename="assets/vendor/fonts/circular-std/style.css") }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for("static", filename="assets/libs/css/style.css") }}">
+    <link rel="stylesheet"
+          href="{{ url_for("static", filename="assets/vendor/fonts/fontawesome/css/fontawesome-all.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="assets/vendor/charts/chartist-bundle/chartist.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="assets/vendor/charts/morris-bundle/morris.css") }}">
+    <link rel="stylesheet"
+          href="{{ url_for("static", filename="assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="assets/vendor/charts/c3charts/c3.css") }}">
+    <link rel="stylesheet"
+          href="{{ url_for("static", filename="assets/vendor/fonts/flag-icon-css/flag-icon.min.css") }}">
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="font_Icon/iconfont.css") }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/chat.css") }}">
 
+    <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/bootstrap.min.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/font-awesome.min.css") }}">
+    <script src="{{ url_for("static", filename="js/jquery.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/bootstrap.min.js") }}"></script>
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/mall.css") }}">
+
+    <title>{% block title %}Chat{% endblock %}</title>
+
+    {% block styles %}
+        <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="font_Icon/iconfont.css") }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/chat.css") }}">
+    {% endblock %}
 </head>
+
 <body>
 
-<div class="chatContainer">
-    <div class="chatBtn">
-        <i class="iconfont icon-xiaoxi1"></i>
-    </div>
-    <div class="chat-message-num">10</div>
-    <div class="chatBox" ref="chatBox">
-        <div class="chatBox-head">
-            <div class="chatBox-head-one">
-                Conversations
-                <div class="chat-close" style="margin: 10px 10px 0 0;font-size: 14px">关闭</div>
-            </div>
-            <div class="chatBox-head-two">
-                <div class="chat-return">返回</div>
-                <div class="chat-people">
-                    <div class="ChatInfoHead">
-                        <img src="" alt="头像"/>
-                    </div>
-                    <div class="ChatInfoName">{{ session['user_name'] }}</div>
+<!-- ============================================================== -->
+<!-- main wrapper -->
+<!-- ============================================================== -->
+<div class="dashboard-main-wrapper">
+    <!-- ============================================================== -->
+    <!-- navbar -->
+    <!-- ============================================================== -->
+    <div class="dashboard-header">
+        <nav class="fixed-top">
+            <div class="search-page">
+                <div class="nav">
+                    <ul>
+                        <li class="nav-pull-down location">
+                            送至杭州
+                        </li>
+                        <li>
+                            <a href="{{ url_for("upload_book") }}">发布新书</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for("seek_book") }}">在线求书</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for("h_search_book") }}">在售书籍</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for("h_seek_book_list") }}">在求书籍</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for("order") }}">我的订单</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for("seller_order") }}">我的卖单</a>
+                        </li>
+
+                        <li>
+                            <a href="{{ url_for("h_modify_user_info") }}">修改个人信息</a>
+                        </li>
+
+
+                        <li class="login-signup">你好，{{ session['user_name'] }}
+
+                            <span class="text-color-red">
+					|<a href="{{ url_for("logout") }}">  退出</a>
+				</span>
+                        </li>
+                    </ul>
                 </div>
-                <div class="chat-close">关闭</div>
             </div>
+
+        </nav>
+    </div>
+    <!-- ============================================================== -->
+    <!-- end navbar -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- left sidebar -->
+    <!-- ============================================================== -->
+    <div class="nav-left-sidebar sidebar-dark">
+        <div class="menu-list">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav flex-column">
+                        <li class="nav-divider">
+                            Menu
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link {% block active1 %}active{% endblock %}" href="{{ url_for("chat") }}"><i
+                                    class="fa fa-fw fa-user-circle"></i>Chat <span
+                                    class="badge badge-success">6</span></a>
+
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link {% block active2 %}{% endblock %}" href="{{ url_for("upload_book") }}"><i
+                                    class="fas fa-fw fa-chart-pie"></i>Selling Book</a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% block active3 %}{% endblock %}"
+                               href="{{ url_for("h_seek_book_list") }}"><i class="fas fa-fw fa-file"></i>Seek Book List
+                            </a>
+
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% block active4 %}{% endblock %}" href="{{ url_for("seek_book") }}"><i
+                                    class="fas fa-fw fa-table"></i>Seek Book</a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% block active5 %}{% endblock %}" href="{{ url_for("order") }}"><i
+                                    class="fa fa-fw fa-rocket"></i>Buying Orders</a>
+
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link {% block active6 %}{% endblock %}"
+                               href="{{ url_for("seller_order") }}"><i class="fab fa-fw fa-wpforms"></i>Selling
+                                Orders</a>
+
+                        </li>
+
+
+                    </ul>
+                </div>
+            </nav>
         </div>
-        <div class="chatBox-info">
-            <div class="chatBox-list" ref="chatBoxlist">
-                {% for key, name in chaters.items() %}
-                    <div class="chat-list-people">
-                        <div><img src="{{ url_for("static", filename="img/icon01.png") }}" alt="头像"/></div>
-                        <div class="chat-id">
-                            <p>{{ key }}</p>
-                        </div>
-                        <div class="chat-name">
-                            <p>{{ name }}</p>
-                        </div>
-                        <div class="message-num">*</div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- end left sidebar -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- wrapper  -->
+    <!-- ============================================================== -->
+    <div class="dashboard-wrapper">
+
+        <div class="container-fluid  dashboard-content">
+
+            {% block content %}
+                <div class="chatContainer">
+                    <div class="chatBtn">
+                        <i class="iconfont icon-xiaoxi1"></i>
                     </div>
-                {% endfor %}
-
-
-            </div>
-            <div class="chatBox-kuang" ref="chatBoxkuang">
-                <div class="chatBox-content">
-                    <div class="chatBox-content-demo" id="chatBox-content-demo">
-
-                        <div class="clearfloat">
-                            <div class="author-name">
-                                <small class="chat-date">2017-12-02 14:26:58</small>
+                    <div class="chat-message-num">10</div>
+                    <div class="chatBox" ref="chatBox">
+                        <div class="chatBox-head">
+                            <div class="chatBox-head-one">
+                                Conversations
+                                <div class="chat-close" style="margin: 10px 10px 0 0;font-size: 14px">关闭</div>
                             </div>
-                            <div class="left">
-                                <div class="chat-avatars"><img src="{{ url_for("static", filename="img/icon01.png") }}"
-                                                               alt="头像"/></div>
-                                <div class="chat-message">
-                                    给你看张图
+                            <div class="chatBox-head-two">
+                                <div class="chat-return">返回</div>
+                                <div class="chat-people">
+                                    <div class="ChatInfoHead">
+                                        <img src="" alt="头像"/>
+                                    </div>
+                                    <div class="ChatInfoName">{{ session['user_name'] }}</div>
+                                </div>
+                                <div class="chat-close">关闭</div>
+                            </div>
+                        </div>
+                        <div class="chatBox-info">
+                            <div class="chatBox-list" ref="chatBoxlist">
+                                {% for key, name in chaters.items() %}
+                                    <div class="chat-list-people">
+                                        <div><img src="{{ url_for("static", filename="img/icon01.png") }}" alt="头像"/>
+                                        </div>
+                                        <div class="chat-id">
+                                            <p>{{ key }}</p>
+                                        </div>
+                                        <div class="chat-name">
+                                            <p>{{ name }}</p>
+                                        </div>
+                                        <div class="message-num">*</div>
+                                    </div>
+                                {% endfor %}
+
+
+                            </div>
+                            <div class="chatBox-kuang" ref="chatBoxkuang">
+                                <div class="chatBox-content">
+                                    <div class="chatBox-content-demo" id="chatBox-content-demo">
+
+                                        <div class="clearfloat">
+                                            <div class="author-name">
+                                                <small class="chat-date">2017-12-02 14:26:58</small>
+                                            </div>
+                                            <div class="left">
+                                                <div class="chat-avatars"><img
+                                                        src="{{ url_for("static", filename="img/icon01.png") }}"
+                                                        alt="头像"/></div>
+                                                <div class="chat-message">
+                                                    给你看张图
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="clearfloat">
+                                            <div class="author-name">
+                                                <small class="chat-date">2017-12-02 14:26:58</small>
+                                            </div>
+                                            <div class="left">
+                                                <div class="chat-avatars"><img
+                                                        src="{{ url_for("static", filename="img/icon01.png") }}"
+                                                        alt="头像"/></div>
+                                                <div class="chat-message">
+                                                    klslksdjflk
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <div class="chatBox-send">
+                                    <div class="div-textarea" contenteditable="true"></div>
+                                    <div>
+
+
+                                        <button id="chat-fasong" class="btn-default-styles"><i
+                                                class="iconfont icon-fasong"></i>
+                                        </button>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
-
-                        <div class="clearfloat">
-                            <div class="author-name">
-                                <small class="chat-date">2017-12-02 14:26:58</small>
-                            </div>
-                            <div class="left">
-                                <div class="chat-avatars"><img src="{{ url_for("static", filename="img/icon01.png") }}"
-                                                               alt="头像"/></div>
-                                <div class="chat-message">
-                                    klslksdjflk
-                                </div>
-                            </div>
-                        </div>
-
-
                     </div>
                 </div>
-                <div class="chatBox-send">
-                    <div class="div-textarea" contenteditable="true"></div>
-                    <div>
 
+            {% endblock %}
 
-                        <button id="chat-fasong" class="btn-default-styles"><i class="iconfont icon-fasong"></i>
-                        </button>
-                    </div>
-
-                </div>
-            </div>
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+{#            <div class="footer">#}
+{#                <div class="container-fluid">#}
+{#                    <div class="row">#}
+{#                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">#}
+{#                            Copyright © 2019 Concept. All rights reserved. Dashboard by Yang.#}
+{#                        </div>#}
+{#                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">#}
+{#                            <div class="text-md-right footer-links d-none d-sm-block">#}
+{#                                <a href="javascript: void(0);">About</a>#}
+{#                                <a href="javascript: void(0);">Support</a>#}
+{#                                <a href="javascript: void(0);">Contact Us</a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+            <!-- ============================================================== -->
+            <!-- end footer -->
+            <!-- ============================================================== -->
         </div>
+        <!-- ============================================================== -->
+        <!-- end wrapper  -->
+        <!-- ============================================================== -->
     </div>
-</div>
+    <!-- ============================================================== -->
+    <!-- end main wrapper  -->
+    <!-- ============================================================== -->
+    <!-- Optional JavaScript -->
+    <!-- jquery 3.3.1 -->
+    <script src="{{ url_for("static", filename="assets/vendor/jquery/jquery-3.3.1.min.js") }}"></script>
+    <!-- bootstap bundle js -->
+    <script src="{{ url_for("static", filename="assets/vendor/bootstrap/js/bootstrap.bundle.js") }}"></script>
+    <!-- slimscroll js -->
+    <script src="{{ url_for("static", filename="assets/vendor/slimscroll/jquery.slimscroll.js") }}"></script>
+    <!-- main js -->
+    <script src="{{ url_for("static", filename="assets/libs/js/main-js.js") }}"></script>
+    <!-- chart chartist js -->
+    <script src="{{ url_for("static", filename="assets/vendor/charts/chartist-bundle/chartist.min.js") }}"></script>
+    <!-- sparkline js -->
+    <script src="{{ url_for("static", filename="assets/vendor/charts/sparkline/jquery.sparkline.js") }}"></script>
+    <!-- morris js -->
+    <script src="{{ url_for("static", filename="assets/vendor/charts/morris-bundle/raphael.min.js") }}"></script>
+    <script src="{{ url_for("static", filename="assets/vendor/charts/morris-bundle/morris.js") }}"></script>
+    <!-- chart c3 js -->
+    <script src="{{ url_for("static", filename="assets/vendor/charts/c3charts/c3.min.js") }}"></script>
+    <script src="{{ url_for("static", filename="assets/vendor/charts/c3charts/d3-5.4.0.min.js") }}"></script>
+    <script src="{{ url_for("static", filename="assets/vendor/charts/c3charts/C3chartjs.js") }}"></script>
+    <script src="{{ url_for("static", filename="assets/libs/js/dashboard-ecommerce.js") }}"></script>
 
 
-<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
-<script>
 
-    screenFuc();
+{% block scripts %}
 
-    function screenFuc() {
-        var topHeight = $(".chatBox-head").innerHeight();//聊天头部高度
-        //屏幕小于768px时候,布局change
-        var winWidth = $(window).innerWidth();
-        if (winWidth <= 768) {
-            var totalHeight = $(window).height(); //页面整体高度
-            $(".chatBox-info").css("height", totalHeight - topHeight);
-            var infoHeight = $(".chatBox-info").innerHeight();//聊天头部以下高度
-            //中间内容高度
-            $(".chatBox-content").css("height", infoHeight - 46);
-            $(".chatBox-content-demo").css("height", infoHeight - 46);
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script>
 
-            $(".chatBox-list").css("height", totalHeight - topHeight);
-            $(".chatBox-kuang").css("height", totalHeight - topHeight);
-            $(".div-textarea").css("width", winWidth - 106);
-        } else {
-            $(".chatBox-info").css("height", 495);
-            $(".chatBox-content").css("height", 448);
-            $(".chatBox-content-demo").css("height", 448);
-            $(".chatBox-list").css("height", 495);
-            $(".chatBox-kuang").css("height", 495);
-            $(".div-textarea").css("width", 260);
-        }
-    }
-
-    (window.onresize = function () {
         screenFuc();
-    })();
-    //未读信息数量为空时
-    var totalNum = $(".chat-message-num").html();
-    if (totalNum == "") {
-        $(".chat-message-num").css("padding", 0);
-    }
-    $(".message-num").each(function () {
-        var wdNum = $(this).html();
-        if (wdNum == "") {
-            $(this).css("padding", 0);
+
+        function screenFuc() {
+            var topHeight = $(".chatBox-head").innerHeight();//聊天头部高度
+            //屏幕小于768px时候,布局change
+            var winWidth = $(window).innerWidth();
+            if (winWidth <= 768) {
+                var totalHeight = $(window).height(); //页面整体高度
+                $(".chatBox-info").css("height", totalHeight - topHeight);
+                var infoHeight = $(".chatBox-info").innerHeight();//聊天头部以下高度
+                //中间内容高度
+                $(".chatBox-content").css("height", infoHeight - 46);
+                $(".chatBox-content-demo").css("height", infoHeight - 46);
+
+                $(".chatBox-list").css("height", totalHeight - topHeight);
+                $(".chatBox-kuang").css("height", totalHeight - topHeight);
+                $(".div-textarea").css("width", winWidth - 106);
+            } else {
+                $(".chatBox-info").css("height", 495);
+                $(".chatBox-content").css("height", 448);
+                $(".chatBox-content-demo").css("height", 448);
+                $(".chatBox-list").css("height", 495);
+                $(".chatBox-kuang").css("height", 495);
+                $(".div-textarea").css("width", 260);
+            }
         }
-    });
+
+        (window.onresize = function () {
+            screenFuc();
+        })();
+        //未读信息数量为空时
+        var totalNum = $(".chat-message-num").html();
+        if (totalNum == "") {
+            $(".chat-message-num").css("padding", 0);
+        }
+        $(".message-num").each(function () {
+            var wdNum = $(this).html();
+            if (wdNum == "") {
+                $(this).css("padding", 0);
+            }
+        });
 
 
-    //打开/关闭聊天框
-    $(".chatBtn").click(function () {
-        $(".chatBox").toggle(10);
-    })
-    $(".chat-close").click(function () {
-        $(".chatBox").toggle(10);
-    })
-    //进聊天页面
-    $(".chat-list-people").each(function () {
-        $(this).click(function () {
-            var n = $(this).index();
-            $(".chatBox-head-one").toggle();
-            $(".chatBox-head-two").toggle();
-            $(".chatBox-list").fadeToggle();
-            $(".chatBox-kuang").fadeToggle();
+        //打开/关闭聊天框
+        $(".chatBtn").click(function () {
+            $(".chatBox").toggle(10);
+        })
+        $(".chat-close").click(function () {
+            $(".chatBox").toggle(10);
+        })
+        //进聊天页面
+        $(".chat-list-people").each(function () {
+            $(this).click(function () {
+                var n = $(this).index();
+                $(".chatBox-head-one").toggle();
+                $(".chatBox-head-two").toggle();
+                $(".chatBox-list").fadeToggle();
+                $(".chatBox-kuang").fadeToggle();
 
-            //传名字 记录id
-            var receiver_id = $(this).children(".chat-id").children("p").eq(0).html();
-            $(".ChatInfoName").text($(this).children(".chat-name").children("p").eq(0).html());
+                //传名字 记录id
+                var receiver_id = $(this).children(".chat-id").children("p").eq(0).html();
+                $(".ChatInfoName").text($(this).children(".chat-name").children("p").eq(0).html());
 
-            //传头像
-            $(".ChatInfoHead>img").attr("src", $(this).children().eq(0).children("img").attr("src"));
+                //传头像
+                $(".ChatInfoHead>img").attr("src", $(this).children().eq(0).children("img").attr("src"));
 
-            //聊天框默认最底部
-            $(document).ready(function () {
-                $.ajax({
-                    url: "/get_content?receiver_id=" + receiver_id,
-                    success: function (data) {
-                        for (let i = 0; i < data.length; i++) {
-                            alert(data[i]);
+                //聊天框默认最底部
+                $(document).ready(function () {
+                    $.ajax({
+                        url: "/get_content?receiver_id=" + receiver_id,
+                        success: function (data) {
+                            for (let i = 0; i < data.length; i++) {
+                                alert(data[i]);
+                            }
+
                         }
 
-                    }
+                    });
 
+                    $("#chatBox-content-demo").scrollTop($("#chatBox-content-demo")[0].scrollHeight);
                 });
+            })
+        });
 
-                $("#chatBox-content-demo").scrollTop($("#chatBox-content-demo")[0].scrollHeight);
-            });
-        })
-    });
+        //返回列表
+        $(".chat-return").click(function () {
+            $(".chatBox-head-one").toggle(1);
+            $(".chatBox-head-two").toggle(1);
+            $(".chatBox-list").fadeToggle(1);
+            $(".chatBox-kuang").fadeToggle(1);
+        });
 
-    //返回列表
-    $(".chat-return").click(function () {
-        $(".chatBox-head-one").toggle(1);
-        $(".chatBox-head-two").toggle(1);
-        $(".chatBox-list").fadeToggle(1);
-        $(".chatBox-kuang").fadeToggle(1);
-    });
-
-    //      发送信息
-    $("#chat-fasong").click(function () {
-        var textContent = $(".div-textarea").html().replace(/[\n\r]/g, '<br>')
-        if (textContent != "") {
-            $(".chatBox-content-demo").append("<div class=\"clearfloat\">" +
-                "<div class=\"author-name\"><small class=\"chat-date\">2017-12-02 14:26:58</small> </div> " +
-                "<div class=\"right\"> <div class=\"chat-message\"> " + textContent + " </div> " +
-                "<div class=\"chat-avatars\"><img src=\"img/icon01.png\" alt=\"头像\" /></div> </div> </div>");
-            //发送后清空输入框
-            $(".div-textarea").html("");
-            //聊天框默认最底部
-            $(document).ready(function () {
-                $("#chatBox-content-demo").scrollTop($("#chatBox-content-demo")[0].scrollHeight);
-            });
-        }
-    });
+        //      发送信息
+        $("#chat-fasong").click(function () {
+            var textContent = $(".div-textarea").html().replace(/[\n\r]/g, '<br>')
+            if (textContent != "") {
+                $(".chatBox-content-demo").append("<div class=\"clearfloat\">" +
+                    "<div class=\"author-name\"><small class=\"chat-date\">2017-12-02 14:26:58</small> </div> " +
+                    "<div class=\"right\"> <div class=\"chat-message\"> " + textContent + " </div> " +
+                    "<div class=\"chat-avatars\"><img src=\"img/icon01.png\" alt=\"头像\" /></div> </div> </div>");
+                //发送后清空输入框
+                $(".div-textarea").html("");
+                //聊天框默认最底部
+                $(document).ready(function () {
+                    $("#chatBox-content-demo").scrollTop($("#chatBox-content-demo")[0].scrollHeight);
+                });
+            }
+        });
 
 
-    $(document).click(function () {
-        $(".biaoqing-photo").css("display", "none");
-    });
-    $("#chat-biaoqing").click(function (event) {
-        event.stopPropagation();//阻止事件
-    });
+        $(document).click(function () {
+            $(".biaoqing-photo").css("display", "none");
+        });
+        $("#chat-biaoqing").click(function (event) {
+            event.stopPropagation();//阻止事件
+        });
 
 
-</script>
+    </script>
+
+{% endblock %}
+
 
 </body>
+
 </html>
+
+
+
+
+
+
