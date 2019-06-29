@@ -187,6 +187,22 @@ def h_search_book():
         return render_template('h_search_book.html', books=books, pagination=pagination)
 
 
+    elif request.method == 'GET' and request.args.get('search_type') != "":
+        searching_content = request.args.get('search_type')
+
+        page = request.args.get('page', 1, type=int)
+        book_list = [i.book_id for i in models.SellBook.query.filter(models.SellBook.is_sold == False)]
+
+        pagination = models.Book.query.filter(models.Book.book_id.in_(book_list)).filter(
+            or_(models.Book.book_type.like("%" + searching_content + "%"),
+                models.Book.content.like("%" + searching_content + "%"))
+        ).order_by(
+            models.Book.book_id).paginate(
+            page, per_page=12, error_out=False)
+        books = pagination.items
+
+        return render_template('h_search_book.html', books=books, pagination=pagination)
+
     else:
         page = request.args.get('page', 1, type=int)
         book_list = [i.book_id for i in models.SellBook.query.filter(models.SellBook.is_sold == False)]

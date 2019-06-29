@@ -50,9 +50,9 @@
     </ul>
 </div>
 <form action="{{ url_for("h_search_book") }}" , method="post">
-<div class="search">
-    <div class="search-body">
-        <div class="input-group">
+    <div class="search">
+        <div class="search-body">
+            <div class="input-group">
 
                 <input type="text" class="form-control" placeholder="输入你想要的商品" name="searching_book">
                 <span class="input-group-btn">
@@ -60,10 +60,22 @@
 						<i class="fa fa-search"></i>
 					</button>
 				</span>
-        </div>
+            </div>
+            <div class="search-keyword">
+                <p><a href="{{ url_for("h_search_book")}}?search_type=天文" style="color: #CCCCCC">天文</a>
+                <a href="{{ url_for("h_search_book")}}?search_type=地理" style="color: #CCCCCC">地理</a>
+                <a href="{{ url_for("h_search_book")}}?search_type=政治" style="color: #CCCCCC">政治</a>
+                <a href="{{ url_for("h_search_book")}}?search_type=历史" style="color: #CCCCCC">历史</a>
+                <a href="{{ url_for("h_search_book")}}?search_type=化学" style="color: #CCCCCC">化学</a>
+                <a href="{{ url_for("h_search_book")}}?search_type=心理" style="color: #CCCCCC">心理</a>
+                <a href="{{ url_for("h_search_book")}}?search_type=数学" style="color: #CCCCCC">数学</a>
+                <a href="{{ url_for("h_search_book")}}?search_type=计算机" style="color: #CCCCCC">计算机</a>
+                <a href="{{ url_for("h_search_book")}}?search_type=生物" style="color: #CCCCCC">生物</a>
+                </p>
+            </div>
 
+        </div>
     </div>
-</div>
 </form>
 
 <div class="item-list-right" style="margin-left: 20%">
@@ -73,32 +85,32 @@
 
         <div class="row">
             {% for item in pagination.items %}
-                <a href="{{ url_for("book_info")}}?book_id={{ item.book_id }}">
-                <div class="col-xs-6 col-sm-3">
+                <a href="{{ url_for("book_info") }}?book_id={{ item.book_id }}">
+                    <div class="col-xs-6 col-sm-3">
 
-                    <div class="item-show-info">
-                        <div class="item-show-img">
-                            <img src="{{ url_for("static", filename="images/"+item.picture_url) }}" height="200px"
-                                 width="220px">
-                        </div>
-                        <div class="item-show-price">
+                        <div class="item-show-info">
+                            <div class="item-show-img">
+                                <img src="{{ url_for("static", filename="images/"+item.picture_url) }}" height="200px"
+                                     width="220px">
+                            </div>
+                            <div class="item-show-price">
 								<span>
 									<i class="fa fa-rmb text-danger"></i>
 									<span class="seckill-price text-danger">{{ item.sell_price }}</span>
 								</span>
-                        </div>
-                        <div class="item-show-detail">
-                            <span>{{ item.content }}</span>
-                        </div>
-                        <div class="item-show-num">
-                            原价
-                            <span>{{ item.ini_price }}</span>元
-                        </div>
-                        <div class="item-show-seller">
-                            <span>{{ item.book_name }}</span>
+                            </div>
+                            <div class="item-show-detail">
+                                <span>{{ item.content }}</span>
+                            </div>
+                            <div class="item-show-num">
+                                原价
+                                <span>{{ item.ini_price }}</span>元
+                            </div>
+                            <div class="item-show-seller">
+                                <span>{{ item.book_name }}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
                 </a>
 

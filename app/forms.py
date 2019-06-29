@@ -3,7 +3,7 @@ from flask_wtf import FlaskForm
 
 from wtforms import StringField, PasswordField, SubmitField, FileField, BooleanField, IntegerField, FloatField, SelectField, DecimalField
 from flask_wtf.file import FileField, FileRequired, FileAllowed
-from wtforms.validators import DataRequired, Length, NumberRange, Optional
+from wtforms.validators import DataRequired, Length, NumberRange, Optional, Email
 
 
 class LoginForm (FlaskForm):
@@ -14,12 +14,12 @@ class LoginForm (FlaskForm):
 
 
 class RegisterForm(FlaskForm):
-    name = StringField("name", validators=[DataRequired()])
-    password1 = PasswordField('password', validators=[DataRequired()])
-    password2 = PasswordField('password', validators=[DataRequired()])
+    name = StringField("name", validators=[DataRequired(), Length(6, 16)])
+    password1 = PasswordField('password', validators=[DataRequired(), Length(6, 16)])
+    password2 = PasswordField('password', validators=[DataRequired(), Length(6, 16)])
     # remember = BooleanField("remember", validators=[Optional()], default=False )
 
-    email = StringField('email', validators=[DataRequired()])
+    email = StringField('email', validators=[DataRequired(), Email()])
     address = StringField('address', validators=[DataRequired()])
     phone = StringField('phone', validators=[DataRequired()])
     paypal = StringField('paypal', validators=[DataRequired()])
@@ -28,10 +28,10 @@ class RegisterForm(FlaskForm):
 
 class ChangeUserInfo(FlaskForm):
 
-    password1 = PasswordField('password', validators=[DataRequired()])
-    password2 = PasswordField('password', validators=[DataRequired()])
+    password1 = PasswordField('password', validators=[DataRequired(),Length(6, 16)])
+    password2 = PasswordField('password', validators=[DataRequired(),Length(6, 16)])
 
-    email = StringField('email', validators=[DataRequired()])
+    email = StringField('email', validators=[DataRequired(), Email()])
     address = StringField('address', validators=[DataRequired()])
     phone = StringField('phone', validators=[DataRequired()])
     paypal = StringField('paypal', validators=[DataRequired()])
