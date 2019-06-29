@@ -35,14 +35,16 @@ def login():
         if form.validate():
             name = form.name.data
             pw = form.password.data
-            data = models.User.query.filter(models.User.name == name, models.User.password == pw).count()
+            print(name)
+            data = models.User.query.filter(and_(models.User.name == name, models.User.password == pw)).count()
+            print(data)
             if data > 0:
                 user = models.User.query.filter(models.User.name == name).first()
                 login_user(user)
 
                 session['user_name'] = name
 
-            return redirect(url_for('search_book'))
+                return redirect(url_for('search_book'))
 
     return render_template('login.html', form=form)
 
@@ -71,15 +73,16 @@ def register():
         paypal = form.paypal.data
 
         has_phone = models.User.query.filter(models.User.phone == phone).count()
+        has_name = models.User.query.filter(models.User.name == name).count()
 
         if password1 == password2:
-            if has_phone == 0:
+            if has_phone == 0 and has_name == 0:
                 me = models.User(name, password1, email, address, phone, paypal)
                 db.session.add(me)
                 db.session.commit()
                 return redirect(url_for("login"))
             else:
-                error = '手机号重复'
+                error = '手机号或昵称重复'
                 return render_template('register.html', form=form, error=error)
         else:
             error = '密码不一致'
