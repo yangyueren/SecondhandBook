@@ -35,9 +35,9 @@ def login():
         if form.validate():
             name = form.name.data
             pw = form.password.data
-            print(name)
+            # print(name)
             data = models.User.query.filter(and_(models.User.name == name, models.User.password == pw)).count()
-            print(data)
+            # print(data)
             if data > 0:
                 user = models.User.query.filter(models.User.name == name).first()
                 login_user(user)
