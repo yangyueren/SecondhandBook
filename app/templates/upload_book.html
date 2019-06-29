@@ -1,0 +1,25 @@
+{% extends "base2.html" %}
+{% block title %}Sell Book{% endblock %}
+{% block active2 %}active{% endblock %}
+{% block content %}
+
+
+    <div class="container-fluid  dashboard-content">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Sell Book Form </h5>
+                <p>You can sell the book you don't need. Please fill in the form completely</p>
+            </div>
+
+
+            {% from 'bootstrap/form.html' import render_form %}
+            <div style="margin-left: 5%; margin-right: 10%; margin-top: 2%">
+                {{ render_form(form) }}
+            </div>
+            {% for message in form.picture.errors %}
+                <small class="error">{{ message }}</small><br>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+

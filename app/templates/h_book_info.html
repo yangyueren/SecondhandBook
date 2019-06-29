@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Store</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/bootstrap.min.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/font-awesome.min.css") }}">
+    <script src="{{ url_for("static", filename="js/jquery.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/bootstrap.min.js") }}"></script>
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/mall.css") }}">
+</head>
+
+
+<body class="search-page">
+<div class="nav">
+    <ul>
+        <li class="nav-pull-down location">
+            送至杭州
+        </li>
+        <li>
+            <a href="{{ url_for("upload_book") }}">发布新书</a>
+        </li>
+        <li>
+            <a href="{{ url_for("seek_book") }}">在线求书</a>
+        </li>
+        <li>
+            <a href="{{ url_for("h_search_book") }}">在售书籍</a>
+        </li>
+        <li>
+            <a href="{{ url_for("h_seek_book_list") }}">在求书籍</a>
+        </li>
+        <li>
+            <a href="{{ url_for("order") }}">我的订单</a>
+        </li>
+        <li>
+            <a href="{{ url_for("seller_order") }}">我的卖单</a>
+        </li>
+
+        <li>
+            <a href="{{ url_for("h_modify_user_info") }}">修改个人信息</a>
+        </li>
+
+
+        <li class="login-signup">你好，{{ session['user_name'] }}
+
+            <span class="text-color-red">
+					|<a href="{{ url_for("logout") }}">  退出</a>
+				</span>
+        </li>
+    </ul>
+</div>
+
+<div class="item-detail-show" style="margin-left: 25%; margin-top: 5%">
+        <div class="item-detail-left">
+            <div class="item-detail-big-img" style="width: 100%;height: inherit">
+                <img src="{{ url_for("static", filename="images/"+book.picture_url) }}" alt="">
+            </div>
+            <div class="item-detail-img-row">
+                <div class="item-detail-img-small" style="width: 100%;height: inherit">
+                    <img src="{{ url_for("static", filename="images/"+book.picture_url) }}" alt="">
+                </div>
+                <div class="item-detail-img-small" style="width: 100%;height: inherit">
+                    <img src="{{ url_for("static", filename="images/"+book.picture_url) }}" alt="">
+                </div>
+                <div class="item-detail-img-small" style="width: 100%;height: inherit">
+                    <img src="{{ url_for("static", filename="images/"+book.picture_url) }}" alt="">
+                </div>
+                <div class="item-detail-img-small" style="width: 100%;height: inherit">
+                    <img src="{{ url_for("static", filename="images/"+book.picture_url) }}" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="item-detail-right" style="width: 50%">
+            <div class="item-detail-title" >
+                <p><span class="item-detail-express">书名</span> {{ book.book_name }}</p>
+            </div>
+            <div class="item-detail-tag" style=" font-size:14px; background-color: #F1F1F1">
+                <p><span>【isbn: {{ book.isbn }}】</span> <span>【type: {{ book.book_type }}】</span><span>【author: {{ book.author }}】</span>  </p>
+                <p><span>【publisher: {{ book.publisher }}】</span><span>【publish date: {{ book.publish_date }}】</span> </p>
+            </div>
+            <div class="item-detail-price-row">
+                <div class="item-price-left">
+                    <div class="item-price-row">
+                        <p><span class="item-price-title">现价</span> <span class="item-price">{{ book.sell_price }}</span></p>
+                    </div>
+                    <div class="item-price-row">
+                        <p>
+                            <span class="item-price-title">原价</span>
+                            <span class="item-price-full-cut">{{ book.ini_price }}</span>
+
+                        </p>
+                    </div>
+                    <div class="item-price-row">
+                        <p>
+                            <span class="item-price-title">内容简介</span><br>
+                            <span class="item-price-full-cut">{{ book.content }}</span>
+
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <!-- 选择颜色 -->
+
+            <!-- 选择套餐 -->
+            <div class="item-select">
+                <div class="item-select-title">
+                    <p>联系卖家</p>
+                </div>
+                <div class="item-select-row">
+                    <div class="item-select-class" id="phone">
+                        <span>电话联系</span>
+                    </div>
+                    <div class="item-select-class">
+                        <span>在线聊天</span>
+                    </div>
+
+                </div>
+            </div>
+            <!-- 白条分期 -->
+            <div class="item-select">
+                <div class="item-select-title">
+                    <p>购买方式</p>
+                </div>
+                <div class="item-select-row">
+                    <div class="item-select-class" id="deal_offline">
+                        <span>线下面交</span>
+                    </div>
+                    <div class="item-select-class" id="deal_online">
+                        <span>线上购买</span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="add-buy-car-box">
+
+                    <button class="btn-add-buy-car btn btn-danger">
+                            购买需谨慎
+                    </button>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+{##}
+{#<script src="{{ url_for("static", filename="js/mall.js") }}"></script>#}
+<script type="text/javascript">
+    $('.item-detail-img-small img').hover(function () {
+        $('.item-detail-big-img img').attr('src', $(this).attr('src'));
+    });
+    $('#deal_offline').click(function () {
+        alert("You buy it successfully.");
+         window.location.href="{{ url_for("order") }}?book_id={{ book.book_id }}&type=offline";
+    });
+    $('#deal_online').click(function () {
+        alert("汇款到paypal账户："+{{ seller.paypal }});
+         window.location.href="{{ url_for("order") }}?book_id={{ book.book_id }}&type=online";
+    });
+    $('#phone').click(function () {
+        alert("Seller's phone is "+{{ seller.phone }});
+        });
+</script>
+</html>

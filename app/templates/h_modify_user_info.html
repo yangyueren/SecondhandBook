@@ -1,0 +1,23 @@
+{% extends "base2.html" %}
+{% block title %}Seek Book{% endblock %}
+{% block content %}
+
+
+    <div class="container-fluid  dashboard-content">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Modify User Info Form </h5>
+                <p style="margin-bottom: 0;margin-top: 3px;">You can change the password, phone and paypal.</p>
+                <p>Your phone is {{ user.phone }}, your email is {{ user.email }}, your address is {{ user.address }}, your paypal is {{ user.paypal }}.</p>
+            </div>
+
+
+            {% from 'bootstrap/form.html' import render_form %}
+            <div style="margin-left: 5%; margin-right: 10%; margin-top: 2%">
+                {{ render_form(form) }}
+                {{ error }}
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

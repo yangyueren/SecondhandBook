@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename="assets/vendor/bootstrap/css/bootstrap.min.css") }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename="assets/vendor/fonts/circular-std/style.css") }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename="assets/libs/css/style.css") }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename="assets/vendor/fonts/fontawesome/css/fontawesome-all.css") }}">
+
+    <style>
+    html,
+    body {
+        height: 100%;
+    }
+
+    body {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- login page  -->
+    <!-- ============================================================== -->
+    <div class="splash-container">
+        <div class="card ">
+            <div class="card-header text-center"><a href="{{ url_for("login") }}"><img class="logo-img" src="{{ url_for("static", filename="assets/images/logo.png") }}" alt="logo"></a><span class="splash-description">Please enter your user information.</span></div>
+            <div class="card-body">
+                <form action="{{ url_for("register") }}" method="post">
+                    {{ form.csrf_token }}
+                    <div class="form-group">
+                        {{ form.name(class="form-control form-control-lg", id="username", type="text", placeholder="Username",autocomplete="off") }}
+
+                    </div>
+                    <div class="form-group">
+                        {{ form.password1(class="form-control form-control-lg" ,id="password1" ,type="password", placeholder="Password") }}
+
+                    </div>
+                    <div class="form-group">
+                        {{ form.password2(class="form-control form-control-lg" ,id="password2" ,type="password", placeholder="Password Repeat") }}
+
+                    </div>
+                    <div class="form-group">
+                        {{ form.email(class="form-control form-control-lg", id="email", type="text", placeholder="Email",autocomplete="off") }}
+
+                    </div>
+                    <div class="form-group">
+                        {{ form.address(class="form-control form-control-lg", id="address", type="text", placeholder="Address",autocomplete="off") }}
+
+                    </div>
+                    <div class="form-group">
+                        {{ form.phone(class="form-control form-control-lg", id="phone", type="text", placeholder="Phone",autocomplete="off") }}
+
+                    </div>
+                    <div class="form-group">
+                        {{ form.paypal(class="form-control form-control-lg", id="paypal", type="text", placeholder="Paypal",autocomplete="off") }}
+
+                    </div>
+                    <div class="form-group">
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox"><span class="custom-control-label">Remember Me</span>
+                        </label>
+                    </div>
+                    {{ form.submit(class="btn btn-primary btn-lg btn-block") }}
+
+                </form>
+            </div>
+            <div class="card-footer bg-white p-0  ">
+                <div class="card-footer-item card-footer-item-bordered">
+                    <a href="{{ url_for("register") }}" class="footer-link">reset</a></div>
+                <div class="card-footer-item card-footer-item-bordered">
+                    <a href="{{ url_for("register") }}" class="footer-link">{{ error }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- end login page  -->
+    <!-- ============================================================== -->
+    <!-- Optional JavaScript -->
+    <script src="{{ url_for('static', filename="assets/vendor/jquery/jquery-3.3.1.min.js") }}"></script>
+    <script src="{{ url_for('static', filename="assets/vendor/bootstrap/js/bootstrap.bundle.js") }}"></script>
+
+</body>
+
+</html></html>

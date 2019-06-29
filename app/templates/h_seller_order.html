@@ -1,0 +1,47 @@
+{% extends "h_base.html" %}
+{% block title %}selling order{% endblock %}
+
+
+{% block content %}
+    <div class="add-info-box-container">
+        {% for item in order_list %}
+            <div class="add-info-box">
+                <div class="add-info-detail">
+                    <div class="add-info-title">
+                        <p><i class="fa fa-check-circle"></i> 商品已成功被购买，请发货！下单时间：{{ item.order_date }}</p>
+                    </div>
+                    <div class="add-info-box-row">
+                        <div class="add-info-img">
+                            <img src="{{ url_for("static", filename="images/"+item.picture_url) }}" alt="">
+                        </div>
+                        <div class="add-info-intro">
+                            <p>书名：{{ item.book_name }}&nbsp&nbsp&nbsp&nbsp内容：{{ item.book_content }}</p>
+                            <p class="add-info-intro-detail">买家姓名：{{ item.user_name }}，买家电话：{{ item.phone }}, 买家地址：{{ item.address }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="car-btn-group">
+                    <div></div>
+                    <div class="car-btn-row">
+                        <a href="{{ url_for("book_info_buyer") }}?book_id={{ item.book_id }}">
+                            <button class="btn-car btn-car-to-detail">查看商品详情</button>
+                        </a>
+                        {% if item.is_received == 1 %}
+                                <button class="btn-car btn-car-to-pay">已收货 &gt;</button>
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for("seller_order") }}">
+                                <button class="btn-car btn-car-to-pay">等待收货 &gt;</button>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+
+{% block script %}
+
+{% endblock %}

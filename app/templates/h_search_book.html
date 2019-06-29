@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Store</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/bootstrap.min.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/font-awesome.min.css") }}">
+    <script src="{{ url_for("static", filename="js/jquery.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/bootstrap.min.js") }}"></script>
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/mall.css") }}">
+</head>
+
+
+<body class="search-page">
+<div class="nav">
+    <ul>
+        <li class="nav-pull-down location">
+            送至杭州
+        </li>
+        <li>
+            <a href="{{ url_for("upload_book") }}">发布新书</a>
+        </li>
+        <li>
+            <a href="{{ url_for("seek_book") }}">在线求书</a>
+        </li>
+        <li>
+            <a href="{{ url_for("h_search_book") }}">在售书籍</a>
+        </li>
+        <li>
+            <a href="{{ url_for("h_seek_book_list") }}">在求书籍</a>
+        </li>
+        <li>
+            <a href="{{ url_for("order") }}">我的订单</a>
+        </li>
+        <li>
+            <a href="{{ url_for("seller_order") }}">我的卖单</a>
+        </li>
+
+        <li>
+            <a href="{{ url_for("h_modify_user_info") }}">修改个人信息</a>
+        </li>
+
+
+        <li class="login-signup">你好，{{ session['user_name'] }}
+
+            <span class="text-color-red">
+					|<a href="{{ url_for("logout") }}">  退出</a>
+				</span>
+        </li>
+    </ul>
+</div>
+<form action="{{ url_for("h_search_book") }}" , method="post">
+<div class="search">
+    <div class="search-body">
+        <div class="input-group">
+
+                <input type="text" class="form-control" placeholder="输入你想要的商品" name="searching_book">
+                <span class="input-group-btn">
+					<button class="btn btn-danger btn-search" type="submit">
+						<i class="fa fa-search"></i>
+					</button>
+				</span>
+        </div>
+
+    </div>
+</div>
+</form>
+
+<div class="item-list-right" style="margin-left: 20%">
+
+    <div class="container" style="background: transparent;">
+        {% from "bootstrap/pagination.html" import render_pagination %}
+
+        <div class="row">
+            {% for item in pagination.items %}
+                <a href="{{ url_for("book_info")}}?book_id={{ item.book_id }}">
+                <div class="col-xs-6 col-sm-3">
+
+                    <div class="item-show-info">
+                        <div class="item-show-img">
+                            <img src="{{ url_for("static", filename="images/"+item.picture_url) }}" height="200px"
+                                 width="220px">
+                        </div>
+                        <div class="item-show-price">
+								<span>
+									<i class="fa fa-rmb text-danger"></i>
+									<span class="seckill-price text-danger">{{ item.sell_price }}</span>
+								</span>
+                        </div>
+                        <div class="item-show-detail">
+                            <span>{{ item.content }}</span>
+                        </div>
+                        <div class="item-show-num">
+                            原价
+                            <span>{{ item.ini_price }}</span>元
+                        </div>
+                        <div class="item-show-seller">
+                            <span>{{ item.book_name }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                </a>
+
+            {% endfor %}
+
+            <div class="col-xs-6 col-sm-3">
+
+                <div class="item-show-info">
+                    <div class="item-show-img">
+                        <img src="img/item-show-1.jpg">
+                    </div>
+                    <div class="item-show-price">
+								<span>
+									<i class="fa fa-rmb text-danger"></i>
+									<span class="seckill-price text-danger">36.60</span>
+								</span>
+                    </div>
+                    <div class="item-show-detail">
+                        <span>SKSK 苹果7/7plus手机壳 iPhone 7 Plus保护套全包硬壳男女磨砂防摔 火影红(苹</span>
+                    </div>
+                    <div class="item-show-num">
+                        已有
+                        <span>6160</span>人评价
+                    </div>
+                    <div class="item-show-seller">
+                        <span>元亨利配件专营店</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div style="alignment: center">{{ render_pagination(pagination) }}</div>
+
+
+    </div>
+
+
+</div>
+
+</body>
+
+<script src="{{ url_for("static", filename="js/mall.js") }}"></script>
+</html>

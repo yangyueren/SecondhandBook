@@ -1,0 +1,24 @@
+{% extends "base2.html" %}
+{% block title %}Seek Book{% endblock %}
+{% block active4 %}active{% endblock %}
+{% block content %}
+
+
+    <div class="container-fluid  dashboard-content">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Seek Book Form </h5>
+                <p>You can seek book you want here. You can just type in several rows.</p>
+            </div>
+
+
+            {% from 'bootstrap/form.html' import render_form %}
+            <div style="margin-left: 5%; margin-right: 10%; margin-top: 2%">
+                {{ render_form(form) }}
+            </div>
+            {% for message in form.picture.errors %}
+                <small class="error">{{ message }}</small><br>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base2.html" %}
+{% block title %}Search Book{% endblock %}
+{% block content %}
+{% from "bootstrap/pagination.html" import render_pagination %}
+
+
+
+      <div class="container-fluid  dashboard-content">
+
+               <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-lg-6 col-md-6 col-sm-12 col-12">
+                                <div class="card">
+                                    <div class="card-header tab-regular">
+                                        <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="card-tab-1" data-toggle="tab" href="#card-1" role="tab" aria-controls="card-1" aria-selected="false">Card Tab 1</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="card-tab-2" data-toggle="tab" href="#card-2" role="tab" aria-controls="card-2" aria-selected="false">Card Tab 2</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link active show" id="card-tab-3" data-toggle="tab" href="#card-3" role="tab" aria-controls="card-3" aria-selected="true">Card Tab 3</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade" id="card-1" role="tabpanel" aria-labelledby="card-tab-1">
+                                                <p>Etiam odio eraturabitur scelerisque leo at lectus mollis, ac dictum lectus fermentum. Donec vitae tellus sapieestas sit amet risus eu, interdum sodales metus. </p>
+                                                <p>
+                                                    Phasellus vulputate dui quam, a pretium lorem vestibulum nec. Cras risus nisi, sollicitudin eget dui eu, porta tinci consectetur, leo vel tincidunt imperdiet, nibh nisl consectetur titor purus dui vitae nibh. Donec ut rhoncus elit, eget aliquam enim. </p>
+                                            </div>
+                                            <div class="tab-pane fade" id="card-2" role="tabpanel" aria-labelledby="card-tab-2">
+                                                <p>Donec vitae tellus sapieniam odio erat egestas sit amet risus euCurabitur scelerisque leo at lectus mollisac dictum lectus fermentuminterdum sodales metus. </p>
+                                                <p>
+                                                    Cras risus nisi, sollicitudin eget dui eu, porta tincidunt sem. Donec consectetur, leo vel tincidunt imperdiet, nibh nisl consectetur orci, ut porttitor purus dui vitae nibh. Donec ut rhoncus elit, eget aliquam enim. </p>
+                                            </div>
+                                            <div class="tab-pane fade active show" id="card-3" role="tabpanel" aria-labelledby="card-tab-3">
+                                                <p>Curabitur scelerisque leo at lectus mollis, ac dictum lectus fermentum. Donec vitae tellus sapien. Etiam odio erat, egestas sit amet risus eu, interdum sodales metus. </p>
+                                                <p>
+                                                    Phasellus vulputate dui quam, a pretium lorem vestibulum nec. Cras risus nisi, sollicitudin eget dui eu, porta tincidunt sem. Donec consectetur, leo vel tincidunt imperdiet, nibh nisl consectetur orci, ut porttitor purus dui vitae nibh. Donec ut rhoncus elit, eget aliquam enim. </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                </div>
+
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base2.html" %}
+{% block title %}Order{% endblock %}
+{% block active4 %}active{% endblock %}
+{% block content %}
+    <div class="container-fluid  dashboard-content">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Orders </h5>
+                <p>Your Orders</p>
+            </div>
+            {% for order in order_list %}
+                {{ order.order_id }}<br>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
