@@ -44,7 +44,7 @@ def login():
 
                 session['user_name'] = name
 
-                return redirect(url_for('search_book'))
+                return redirect(url_for('h_search_book'))
 
     return render_template('login.html', form=form)
 
@@ -167,7 +167,7 @@ def upload_book():
         db.session.add(sell_book)
         db.session.commit()
 
-        return 'ok upload'
+        return redirect(url_for("h_search_book"))
     return render_template('upload_book.html', form=form)
 
 
@@ -189,9 +189,9 @@ def h_search_book():
 
         return render_template('h_search_book.html', books=books, pagination=pagination)
 
-
-    elif request.method == 'GET' and request.args.get('search_type') != "":
+    elif request.method == 'GET' and request.args.get('search_type') is not None:
         searching_content = request.args.get('search_type')
+        print(searching_content)
 
         page = request.args.get('page', 1, type=int)
         book_list = [i.book_id for i in models.SellBook.query.filter(models.SellBook.is_sold == False)]
@@ -260,7 +260,7 @@ def book_info():
     """
     book_id = request.args.get('book_id')
     if len(book_id) == 0:
-        return redirect(url_for('search_book'))
+        return redirect(url_for('h_search_book'))
     book = models.Book.query.filter(models.Book.book_id == book_id).first()
     sell_book = models.SellBook.query.filter(models.SellBook.book_id == book_id).first()
     seller = models.User.query.filter(models.User.user_id == sell_book.seller_id).first()
@@ -395,7 +395,7 @@ def seek_book():
         # print(current_user.user_id)
         db.session.commit()
 
-        return 'ok seek'
+        return redirect(url_for("h_seek_book_list"))
     return render_template('seek_book.html', form=form)
 
 
@@ -474,6 +474,7 @@ def get_chat_content():
 @login_required
 def chat():
     user_id = current_user.get_id()
+    print(user_id)
 
     chaters = get_chat_list(user_id)
     chat_content = ['']

@@ -153,7 +153,7 @@
 
 
 </body>
-{##}
+
 {#<script src="{{ url_for("static", filename="js/mall.js") }}"></script>#}
 <script type="text/javascript">
     $('.item-detail-img-small img').hover(function () {
@@ -164,11 +164,11 @@
          window.location.href="{{ url_for("order") }}?book_id={{ book.book_id }}&type=offline";
     });
     $('#deal_online').click(function () {
-        alert("汇款到paypal账户："+{{ seller.paypal }});
+        alert("汇款到paypal账户：{{ seller.paypal }}");
          window.location.href="{{ url_for("order") }}?book_id={{ book.book_id }}&type=online";
     });
     $('#phone').click(function () {
-        alert("Seller's phone is "+{{ seller.phone }});
+        alert("Seller's phone is {{ seller.phone }}");
         });
 </script>
 </html>
