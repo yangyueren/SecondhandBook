@@ -448,7 +448,7 @@ def get_chat_list(user_id):
         a.add(i.receiver_id)
     for j in a:
         chat_dict[j] = models.User.query.filter(models.User.user_id == j).first().name
-    return chat_dict
+    return a, chat_dict
 
 
 @app.route('/get_content', methods=['GET'])
@@ -474,9 +474,18 @@ def get_chat_content():
 @login_required
 def chat():
     user_id = current_user.get_id()
-    print(user_id)
-
-    chaters = get_chat_list(user_id)
+    # print(request.args.get("book_id"))
+    if request.args.get("book_id") is not None:
+        book_id = request.args.get("book_id")
+        sell_book = models.SellBook.query.filter(models.SellBook.book_id == book_id).first()
+        seller_id = sell_book.seller_id
+        a, chaters = get_chat_list(user_id)
+        if seller_id not in a:
+            _time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+            contact = models.Contact(seller_id, user_id, _time, "欢迎询问", True)
+            db.session.add(contact)
+            db.session.commit()
+    _, chaters = get_chat_list(user_id)
     chat_content = ['']
     print(chaters)
     return render_template('chat.html', chaters=chaters, chat_content=chat_content)

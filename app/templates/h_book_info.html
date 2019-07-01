@@ -119,7 +119,7 @@
                     <div class="item-select-class" id="phone">
                         <span>电话联系</span>
                     </div>
-                    <div class="item-select-class">
+                    <div class="item-select-class" id="chat">
                         <span>在线聊天</span>
                     </div>
 
@@ -166,6 +166,10 @@
     $('#deal_online').click(function () {
         alert("汇款到paypal账户：{{ seller.paypal }}");
          window.location.href="{{ url_for("order") }}?book_id={{ book.book_id }}&type=online";
+    });
+    $('#chat').click(function () {
+
+         window.location.href="{{ url_for("chat") }}?book_id={{ book.book_id }}";
     });
     $('#phone').click(function () {
         alert("Seller's phone is {{ seller.phone }}");
