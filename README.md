@@ -1,4 +1,4 @@
-##SecondhandBook
+## SecondhandBook
 
-网站已部署，请访问 http://106.14.191.112/ 或者 http://106.14.191.112/login
+This is a flask project. Students can sell their leisure books on the website and the website also support seeking for books.
 
